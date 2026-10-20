@@ -71,6 +71,9 @@ export const GpsTrackingScreen: React.FC = () => {
     if (!mapContainerRef.current) return;
 
     if (!mapInstanceRef.current) {
+      if ((mapContainerRef.current as unknown as { _leaflet_id?: number | null })._leaflet_id) {
+        (mapContainerRef.current as unknown as { _leaflet_id?: number | null })._leaflet_id = null;
+      }
       const map = L.map(mapContainerRef.current, {
         center: [currentTrackedCar.currentGps.lat, currentTrackedCar.currentGps.lng],
         zoom: 14,

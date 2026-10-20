@@ -1,9 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "vite",
-  "buildCommand": "vite build",
-  "outputDirectory": "dist",
   "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/sw.js",
@@ -32,7 +35,7 @@
       ]
     },
     {
-      "source": "/downloads/(.*)",
+      "source": "/downloads/:path*",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
@@ -43,12 +46,6 @@
           "value": "public, max-age=3600, must-revalidate"
         }
       ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/((?!assets/|car_assets/|downloads/|sw\\.js|workbox-.*|manifest\\.webmanifest|registerSW\\.js|favicon\\.ico|icon\\.svg|apple-touch-icon\\.png).*)",
-      "destination": "/index.html"
     }
   ]
 }

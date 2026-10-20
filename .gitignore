@@ -9,3 +9,4 @@ coverage/
 unpacked_rentapp/
 .aistudio/
 dev-dist/
+bun.lock
