@@ -1,5 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "buildCommand": "vite build",
+  "outputDirectory": "dist",
   "cleanUrls": true,
   "headers": [
     {
@@ -29,30 +32,22 @@
       ]
     },
     {
-      "source": "/downloads/(.*)\\.apk",
+      "source": "/downloads/(.*)",
       "headers": [
         {
-          "key": "Content-Type",
-          "value": "application/vnd.android.package-archive"
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
         },
         {
-          "key": "Content-Disposition",
-          "value": "attachment; filename=\"ALBETH_TRANSPORT_v1.0.apk\""
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
         }
       ]
     }
   ],
   "rewrites": [
     {
-      "source": "/downloads/:match*",
-      "destination": "/downloads/:match*"
-    },
-    {
-      "source": "/car_assets/:match*",
-      "destination": "/car_assets/:match*"
-    },
-    {
-      "source": "/(.*)",
+      "source": "/((?!assets/|car_assets/|downloads/|sw\\.js|workbox-.*|manifest\\.webmanifest|registerSW\\.js|favicon\\.ico|icon\\.svg|apple-touch-icon\\.png).*)",
       "destination": "/index.html"
     }
   ]

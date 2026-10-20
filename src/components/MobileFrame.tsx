@@ -32,11 +32,12 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({ children }) => {
     setViewDeviceFrame,
     activeReservation,
     systemAlert,
-    setSystemAlert
+    setSystemAlert,
+    isInstallModalOpen,
+    setIsInstallModalOpen
   } = useRental();
 
   const [currentTime, setCurrentTime] = useState('09:41');
-  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
   const { isOnline } = useOnlineStatus();
 
   useEffect(() => {

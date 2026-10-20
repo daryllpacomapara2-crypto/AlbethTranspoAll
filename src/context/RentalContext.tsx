@@ -45,6 +45,8 @@ interface RentalContextType {
   activeReservation: Reservation | null;
   viewDeviceFrame: boolean;
   setViewDeviceFrame: (val: boolean) => void;
+  isInstallModalOpen: boolean;
+  setIsInstallModalOpen: (val: boolean) => void;
   
   // Actions
   bookCar: (payload: BookingPayload) => Promise<Reservation>;
@@ -66,9 +68,9 @@ interface RentalContextType {
 const RentalContext = createContext<RentalContextType | undefined>(undefined);
 
 const STORAGE_KEYS = {
-  CARS: 'albeth_r8_cars_v1',
-  RESERVATIONS: 'albeth_r8_reservations_v1',
-  USER: 'albeth_r8_user_v1',
+  CARS: 'albeth_r8_cars_v2',
+  RESERVATIONS: 'albeth_r8_reservations_v2',
+  USER: 'albeth_r8_user_v2',
   LOGGED_IN: 'albeth_r8_logged_in_v1',
   ONBOARDED: 'albeth_r8_onboarded_v1',
   DEVICE_FRAME: 'albeth_r8_frame_v1'
@@ -92,7 +94,12 @@ export const RentalProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [cars, setCars] = useState<Car[]>(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.CARS);
     if (saved) {
-      try { return JSON.parse(saved); } catch (e) { /* ignore */ }
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length >= 4 && parsed.some(c => c.id === 'car-mirage-g4')) {
+          return parsed;
+        }
+      } catch (e) { /* ignore */ }
     }
     return INITIAL_CARS;
   });
@@ -128,6 +135,7 @@ export const RentalProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     return saved !== null ? saved === 'true' : true;
   });
   const [systemAlert, setSystemAlert] = useState<string | null>(null);
+  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
 
   // Sync to local storage
   useEffect(() => {
@@ -486,6 +494,8 @@ export const RentalProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         activeReservation,
         viewDeviceFrame,
         setViewDeviceFrame,
+        isInstallModalOpen,
+        setIsInstallModalOpen,
         bookCar,
         extendReservation,
         cancelReservation,

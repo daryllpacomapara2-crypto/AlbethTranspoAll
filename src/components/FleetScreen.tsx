@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useRental } from '../context/RentalContext';
 import { CarCard } from './CarCard';
-import { Search, SlidersHorizontal, MapPin, Sparkles, Navigation, ShieldCheck, Compass, Info } from 'lucide-react';
+import { Search, SlidersHorizontal, MapPin, Sparkles, Navigation, ShieldCheck, Compass, Info, Download, Smartphone } from 'lucide-react';
 
 export const FleetScreen: React.FC = () => {
-  const { cars, activeReservation, setActiveTab, setSelectedCar, setActiveScreen } = useRental();
+  const { cars, activeReservation, setActiveTab, setSelectedCar, setActiveScreen, setIsInstallModalOpen } = useRental();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [sortBy, setSortBy] = useState<'featured' | 'price-low' | 'price-high' | 'seats'>('featured');
@@ -73,6 +73,33 @@ export const FleetScreen: React.FC = () => {
               Main Business Office @ <strong>San Sebastian, Samar</strong>. We operate exclusively within <strong>Region 8 (Eastern Visayas)</strong> — Samar, Northern Samar, Eastern Samar, Leyte, Southern Leyte & Biliran (Any point return).
             </p>
           </div>
+        </div>
+
+        {/* Mobile .APK & Offline-Sync Banner */}
+        <div 
+          onClick={() => setIsInstallModalOpen(true)}
+          className="cursor-pointer p-3.5 rounded-2xl bg-gradient-to-r from-neutral-900 to-neutral-950 text-white border border-amber-400/30 shadow-md flex items-center justify-between gap-3 group active:scale-[0.99] transition-all hover:border-amber-400"
+        >
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-10 h-10 rounded-xl bg-amber-400/10 border border-amber-400/30 flex items-center justify-center shrink-0">
+              <Download className="w-5 h-5 text-amber-400 group-hover:scale-110 transition-transform" />
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-black text-amber-400 uppercase tracking-wide">Mobile Installer (.APK)</span>
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.2 rounded font-bold">Auto-Sync</span>
+              </div>
+              <p className="text-[11px] text-neutral-300 truncate">
+                Download direct Android app installer (v1.0) with offline queue & real-time telemetry
+              </p>
+            </div>
+          </div>
+          <button 
+            type="button"
+            className="px-3 py-1.5 rounded-xl bg-amber-400 text-neutral-950 font-black text-xs shrink-0 group-hover:bg-amber-300 transition-colors shadow"
+          >
+            Download
+          </button>
         </div>
 
         {/* Active Rental Alert Bar if user currently has an active car */}
