@@ -15,8 +15,10 @@ import {
   CheckCircle2, 
   X,
   LogIn,
-  UserPlus
+  UserPlus,
+  Download
 } from 'lucide-react';
+
 
 export const OnboardingScreen: React.FC = () => {
   const { setActiveScreen, setActiveTab, loginClient, registerClient, currentUser } = useRental();
@@ -137,16 +139,16 @@ export const OnboardingScreen: React.FC = () => {
             <div className="space-y-2">
               <div className="inline-flex items-center gap-1.5 text-xs font-bold tracking-wider uppercase text-amber-400">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Samar & Leyte Car Rental Service</span>
+                <span>ALBETH TRANSPORT (Cars for any occasions)</span>
               </div>
 
               <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white leading-tight">
-                Premium cars in Region 8. <br />
-                <span className="text-amber-400">Mitsubishi Mirage G4 & Fleet</span>
+                ALBETH TRANSPORT <br />
+                <span className="text-amber-400">(Cars for any occasions)</span>
               </h1>
 
               <p className="text-neutral-300 text-xs sm:text-sm leading-relaxed max-w-sm">
-                Head office located at <strong className="text-white">San Sebastian, Samar</strong>. Self-drive & drop-off anywhere in Region 8 with real-time GPS tracking.
+                Self-drive & chauffeur rentals across Region 8 (Any Point) with real-time GPS return tracking.
               </p>
             </div>
 
@@ -178,6 +180,15 @@ export const OnboardingScreen: React.FC = () => {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
 
+              <a
+                href="/downloads/ALBETH_TRANSPORT_v1.0.apk"
+                download="ALBETH_TRANSPORT_v1.0.apk"
+                className="w-full py-2.5 px-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 text-xs font-bold flex items-center justify-center gap-2 border border-amber-500/30 transition-all shadow-sm"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Download Android .APK Installer (v1.0.0 • 5.6 MB)</span>
+              </a>
+
               <div className="flex items-center justify-center gap-4 text-[11px] text-neutral-400 pt-1">
                 <div className="flex items-center gap-1">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
@@ -190,6 +201,20 @@ export const OnboardingScreen: React.FC = () => {
                 </div>
                 <span>•</span>
                 <span>Rates in PHP (₱)</span>
+              </div>
+
+              {/* ALBETH TRANSPORT Official Transparent Logo at the bottom */}
+              <div className="pt-2 pb-1 flex flex-col items-center justify-center">
+                <div className="bg-transparent flex items-center justify-center hover:scale-105 transition-transform">
+                  <img
+                    src="/car_assets/albeth_logo_transparent.png"
+                    alt="ALBETH TRANSPORT (Cars for any occasions)"
+                    className="h-16 sm:h-20 w-auto object-contain filter drop-shadow-[0_2px_12px_rgba(255,255,255,0.75)]"
+                  />
+                </div>
+                <p className="text-xs font-extrabold text-amber-400 mt-1 tracking-wide text-center">
+                  ALBETH TRANSPORT (Cars for any occasions)
+                </p>
               </div>
             </div>
           </div>

@@ -8,10 +8,15 @@ import {
   Smartphone, 
   Maximize2, 
   Wifi, 
+  WifiOff,
   BatteryMedium,
-  Radio
+  Radio,
+  Download
 } from 'lucide-react';
 import { AppTab } from '../types/rental';
+import { InstallModal } from './InstallModal';
+import { OfflineIndicator } from './OfflineIndicator';
+import { useOnlineStatus } from '../hooks/useOnlineStatus';
 
 interface MobileFrameProps {
   children: React.ReactNode;
@@ -31,6 +36,8 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({ children }) => {
   } = useRental();
 
   const [currentTime, setCurrentTime] = useState('09:41');
+  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
+  const { isOnline } = useOnlineStatus();
 
   useEffect(() => {
     const update = () => {
@@ -61,28 +68,43 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({ children }) => {
     <div className="min-h-screen w-full bg-[#0D0D10] flex flex-col items-center justify-center p-0 md:p-6 overflow-hidden">
       {/* Top Floating Control Toolbar for Desktop Viewers */}
       <header className="w-full max-w-md mx-auto mb-3 px-4 py-2 hidden md:flex items-center justify-between text-xs text-neutral-400">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-amber-400" />
-          <span className="font-bold text-neutral-200">ALBETH TRANSPORT</span>
-          <span className="text-[10px] bg-white/10 px-2 py-0.5 rounded text-neutral-400">Mobile Edition</span>
+        <div className="flex items-center gap-2.5">
+          <div className="bg-transparent flex items-center justify-center">
+            <img src="/car_assets/albeth_logo_transparent.png" alt="ALBETH" className="h-7 w-auto object-contain filter drop-shadow-[0_1px_6px_rgba(255,255,255,0.6)]" />
+          </div>
+          <div className="leading-tight">
+            <span className="font-bold text-neutral-100 block text-xs">ALBETH TRANSPORT</span>
+            <span className="text-[10px] text-amber-400 font-semibold block">(Cars for any occasions)</span>
+          </div>
         </div>
 
-        <button
-          onClick={() => setViewDeviceFrame(!viewDeviceFrame)}
-          className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white/10 hover:bg-white/15 text-neutral-200 font-semibold transition-colors"
-        >
-          {viewDeviceFrame ? (
-            <>
-              <Maximize2 className="w-3.5 h-3.5 text-amber-400" />
-              <span>Full Screen</span>
-            </>
-          ) : (
-            <>
-              <Smartphone className="w-3.5 h-3.5 text-amber-400" />
-              <span>Phone Frame</span>
-            </>
-          )}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setIsInstallModalOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-gradient-to-r from-amber-500/20 to-amber-600/30 hover:from-amber-500/30 hover:to-amber-600/40 border border-amber-500/40 text-amber-300 font-semibold transition-all shadow-sm"
+            title="Download .APK Installer or Install App"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>.APK / Install</span>
+          </button>
+
+          <button
+            onClick={() => setViewDeviceFrame(!viewDeviceFrame)}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white/10 hover:bg-white/15 text-neutral-200 font-semibold transition-colors"
+          >
+            {viewDeviceFrame ? (
+              <>
+                <Maximize2 className="w-3.5 h-3.5 text-amber-400" />
+                <span>Full Screen</span>
+              </>
+            ) : (
+              <>
+                <Smartphone className="w-3.5 h-3.5 text-amber-400" />
+                <span>Phone Frame</span>
+              </>
+            )}
+          </button>
+        </div>
       </header>
 
       {/* Main Container / Mobile Device Enclosure */}
@@ -106,7 +128,17 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({ children }) => {
           </div>
 
           <div className="flex items-center gap-2">
-            <Wifi className="w-3.5 h-3.5 opacity-80" />
+            <button
+              onClick={() => setIsInstallModalOpen(true)}
+              className="flex items-center gap-1 hover:opacity-80 transition"
+              title={isOnline ? "Online: Auto-Syncing with San Sebastian Hub" : "Offline: Cached Data"}
+            >
+              {isOnline ? (
+                <Wifi className="w-3.5 h-3.5 text-emerald-400" />
+              ) : (
+                <WifiOff className="w-3.5 h-3.5 text-amber-400" />
+              )}
+            </button>
             <Radio className="w-3.5 h-3.5 text-amber-400 opacity-90" />
             <BatteryMedium className="w-4 h-4 text-emerald-400" />
           </div>
@@ -119,6 +151,7 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({ children }) => {
             <span className="truncate">{systemAlert}</span>
           </div>
         )}
+
 
         {/* Active Screen Area */}
         <main className="flex-1 w-full h-full relative overflow-hidden flex flex-col">
@@ -163,7 +196,17 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({ children }) => {
         <div className="shrink-0 h-4 bg-transparent flex items-center justify-center pb-1">
           <div className="w-32 h-1 bg-white/20 rounded-full" />
         </div>
+
+        {/* In-App Mobile APK & PWA Install Modal */}
+        <InstallModal 
+          isOpen={isInstallModalOpen} 
+          onClose={() => setIsInstallModalOpen(false)} 
+        />
+
+        {/* Global Offline/Online Connectivity & Auto-Sync Indicator */}
+        <OfflineIndicator />
       </div>
     </div>
   );
 };
+

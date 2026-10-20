@@ -34,14 +34,17 @@ export const FleetScreen: React.FC = () => {
     <div className="flex flex-col h-full bg-white text-neutral-900 overflow-y-auto pb-24">
       {/* Top Header matching Flutter AppBar (title: 'Choose Your Car') */}
       <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-md px-4 sm:px-6 py-4 border-b border-neutral-100 flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider text-amber-700">
-            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-            <span>ALBETH TRANSPORT • REGION 8</span>
+        <div className="flex items-center gap-2.5">
+          <img src="/car_assets/albeth_logo_transparent.png" alt="ALBETH Logo" className="h-9 sm:h-10 w-auto object-contain" />
+          <div>
+            <div className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider text-amber-700">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+              <span>San Sebastian, Samar • Region 8</span>
+            </div>
+            <h1 className="text-base sm:text-lg font-black tracking-tight text-neutral-950">
+              ALBETH TRANSPORT (Cars for any occasions)
+            </h1>
           </div>
-          <h1 className="text-xl sm:text-2xl font-black tracking-tight text-neutral-950">
-            Choose Your Car
-          </h1>
         </div>
 
         {/* Live GPS quick jump badge */}
@@ -50,7 +53,7 @@ export const FleetScreen: React.FC = () => {
             setActiveTab('gps');
             setActiveScreen('main');
           }}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-950 text-white text-xs font-bold shadow hover:bg-neutral-800 transition-all active:scale-95"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-950 text-white text-xs font-bold shadow hover:bg-neutral-800 transition-all active:scale-95 shrink-0"
         >
           <Navigation className="w-3.5 h-3.5 text-amber-400" />
           <span>Region 8 GPS</span>
@@ -63,11 +66,11 @@ export const FleetScreen: React.FC = () => {
           <MapPin className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
           <div className="text-xs">
             <div className="font-extrabold text-amber-900 flex items-center gap-1">
-              <span>Main Business Office: San Sebastian, Samar</span>
+              <span>ALBETH TRANSPORT (Cars for any occasions)</span>
               <span className="text-[10px] bg-amber-200/80 text-amber-900 px-1.5 py-0.2 rounded font-bold">HQ</span>
             </div>
             <p className="text-neutral-700 mt-0.5 leading-relaxed">
-              We operate exclusively within <strong>Region 8 (Eastern Visayas)</strong> — Samar, Northern Samar, Eastern Samar, Leyte, Southern Leyte & Biliran (Any point return).
+              Main Business Office @ <strong>San Sebastian, Samar</strong>. We operate exclusively within <strong>Region 8 (Eastern Visayas)</strong> — Samar, Northern Samar, Eastern Samar, Leyte, Southern Leyte & Biliran (Any point return).
             </p>
           </div>
         </div>
@@ -168,6 +171,21 @@ export const FleetScreen: React.FC = () => {
               </button>
             </div>
           )}
+        </div>
+
+        {/* ALBETH TRANSPORT Transparent Brand Footer */}
+        <div className="pt-8 pb-4 flex flex-col items-center justify-center text-center">
+          <img
+            src="/car_assets/albeth_logo_transparent.png"
+            alt="ALBETH TRANSPORT (Cars for any occasions)"
+            className="h-14 sm:h-16 w-auto object-contain hover:scale-105 transition-transform"
+          />
+          <p className="text-xs font-black text-neutral-900 mt-2">
+            ALBETH TRANSPORT (Cars for any occasions)
+          </p>
+          <p className="text-[11px] text-neutral-500 mt-0.5">
+            Head Office: San Sebastian, Samar • Operating in Region 8 (Any Point)
+          </p>
         </div>
       </div>
     </div>
